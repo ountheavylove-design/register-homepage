@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T24H</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section id="top-header">
+    <div class="container topbar">
+      <span>Phone: +60 12-345 6789</span>
+      <span>Email: info@t24h.com</span>
+      <span>Follow us</span>
+    </div>
+  </section>
+
+  <header id="center-header">
+    <div class="container header-wrapper">
+      <div class="header-logo">
+        <div class="logo">T24H</div>
+      </div>
+      <nav class="header-navigation-wrapper">
+        <div class="navbar">
+          <a href="#home" class="navbar-control">Home</a>
+          <a href="#about" class="navbar-control">About</a>
+          <a href="#activities" class="navbar-control">Activities</a>
+          <a href="#coaches" class="navbar-control">Coaches</a>
+          <a href="#register" class="navbar-control">Register</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1>Welcome to T24H</h1>
+        <p>A modern sports club for the community. Join us for training, tournaments, and fitness programs.</p>
+        <a href="#register" class="btn btn-primary">Register Now</a>
+      </div>
+      <div class="hero-image">Hero Image</div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">About Us</h2>
+      <p>T24H is a community sports club focused on youth development, competitive events, and fitness. We offer football, basketball, soccer, cricket, tennis and more.</p>
+    </div>
+  </section>
+
+  <section id="activities" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Activities</h2>
+      <div class="grid">
+        <div class="grid-item">Football</div>
+        <div class="grid-item">Basketball</div>
+        <div class="grid-item">Soccer</div>
+        <div class="grid-item">Cricket</div>
+        <div class="grid-item">Tennis</div>
+        <div class="grid-item">Fitness</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="coaches" class="section">
+    <div class="container">
+      <h2 class="section-title">Coaches</h2>
+      <div class="coach-grid">
+        <div class="coach-card">
+          <div class="coach-photo">Photo</div>
+          <h3>Coach Name</h3>
+          <p>Sport specialty</p>
+        </div>
+        <div class="coach-card">
+          <div class="coach-photo">Photo</div>
+          <h3>Coach Name</h3>
+          <p>Sport specialty</p>
+        </div>
+        <div class="coach-card">
+          <div class="coach-photo">Photo</div>
+          <h3>Coach Name</h3>
+          <p>Sport specialty</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="register" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Registration</h2>
+      <p>Fill in your details to sign up.</p>
+      <div class="register-card">
+        <form id="registerForm" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your full name" required />
+          </div>
+          <div class="field">
+            <label for="phone">Telegram phone number</label>
+            <input id="phone" name="phone" type="tel" placeholder="+1 555 123 4567" required />
+          </div>
+          <button type="submit" id="submitBtn">Submit</button>
+          <button type="button" id="homeBtn" class="home-btn" style="display:none;">Home</button>
+        </form>
+        <div id="message" class="msg"></div>
+      </div>
+    </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>&copy; 2026 T24H. All rights reserved.</div>
+      <div>Follow us on Telegram</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

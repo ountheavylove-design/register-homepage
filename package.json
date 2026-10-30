@@ -1,0 +1,16 @@
+{
+  "name": "register-homepage",
+  "version": "1.0.0",
+  "description": "Register homepage that pushes user info to Telegram bot and Google Sheets",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-telegram-bot-api": "^0.66.0",
+    "googleapis": "^140.0.1",
+    "dotenv": "^16.4.5"
+  }
+}

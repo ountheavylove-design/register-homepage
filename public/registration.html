@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #22d3ee;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --error: #f87171;
+      --success: #34d399;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, #1e293b, transparent),
+                  radial-gradient(1000px 500px at 100% 0%, #1e3a5f, transparent),
+                  var(--bg);
+      color: var(--text);
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    h1 { margin: 0 0 4px; font-size: 22px; }
+    p.subtitle { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; font-size: 13px; margin-bottom: 6px; color: var(--muted); }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34,211,238,0.2); }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: filter 0.15s, transform 0.05s;
+    }
+    button:hover { filter: brightness(1.08); }
+    button:active { transform: translateY(1px); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .home-btn {
+      margin-top: 12px;
+      width: 100%;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .home-btn:hover { background: var(--accent); color: #0f172a; }
+    .msg { margin-top: 14px; font-size: 14px; min-height: 20px; }
+    .msg.error { color: var(--error); }
+    .msg.success { color: var(--success); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Registration</h1>
+    <p class="subtitle">Fill in your details to sign up.</p>
+    <form id="registerForm" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your full name" required />
+      </div>
+      <div class="field">
+        <label for="phone">Telegram phone number</label>
+        <input id="phone" name="phone" type="tel" placeholder="+1 555 123 4567" required />
+      </div>
+      <button type="submit" id="submitBtn">Submit</button>
+      <button type="button" id="homeBtn" class="home-btn" style="display:none;">Home</button>
+    </form>
+    <div id="message" class="msg"></div>
+  </div>
+
+  <script>
+    // Override this when embedding the page in another site.
+    // Example: <script> window.REGISTER_API_URL = "https://yourdomain.com/api/register"; </script>
+    const API_URL = window.REGISTER_API_URL || "/api/register";
+
+    const form = document.getElementById('registerForm');
+    const msg = document.getElementById('message');
+    const btn = document.getElementById('submitBtn');
+    const homeBtn = document.getElementById('homeBtn');
+    const HOME_URL = window.REGISTER_HOME_URL || '/t24h/';
+
+    function setMessage(text, type) {
+      msg.textContent = text;
+      msg.className = 'msg ' + type;
+    }
+
+    homeBtn.addEventListener('click', () => {
+      window.location.href = HOME_URL;
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const payload = {
+        name: (data.get('name') || '').trim(),
+        phone: (data.get('phone') || '').trim(),
+      };
+      if (!payload.name || !payload.phone) {
+        setMessage('Please fill in all fields.', 'error');
+        return;
+      }
+      btn.disabled = true;
+      setMessage('Submitting...', '');
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await res.json();
+        if (!res.ok) {
+          setMessage(result.error || 'Submission failed.', 'error');
+        } else {
+          setMessage('Registered successfully!', 'success');
+          form.reset();
+          homeBtn.style.display = 'block';
+        }
+      } catch (err) {
+        setMessage('Network error. Please try again.', 'error');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
